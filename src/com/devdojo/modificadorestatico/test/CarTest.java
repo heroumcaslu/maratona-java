@@ -14,6 +14,8 @@ public class CarTest {
 		c1.print();
 		c2.print();
 		c3.print();
+		
+		Car.setSpeedLimit(220);
 
 	}
 

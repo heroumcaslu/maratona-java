@@ -41,11 +41,12 @@ public class Car {
 		this.maxSpeed = maxSpeed;
 	}
 
-	public double getSpeedLimit() {
-		return speedLimit;
+	//Não é possivel acessar atributos de objetos dentro de metodos estáticos
+	public static double getSpeedLimit() {
+		return Car.speedLimit;
 	}
 
-	public void setSpeedLimit(double speedLimit) {
+	public static void setSpeedLimit(double speedLimit) {
 		Car.speedLimit = speedLimit;
 	}
 
