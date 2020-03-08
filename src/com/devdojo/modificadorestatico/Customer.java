@@ -2,7 +2,7 @@ package com.devdojo.modificadorestatico;
 
 public class Customer {
 
-	//0 - Bloco de inicialização estático será executado na sua primeira ocorrência na JVM será executado apenas uma vez
+	//0 - Bloco de inicialização estático será executado na sua primeira ocorrência na JVM, será executado apenas uma vez
 	//1 - Primeiro é alocado espaço na memória para o objeto
 	//2 - Cada atributo é criado com os valores default ou explicitados
 	//3 - Bloco de inicialização é executado

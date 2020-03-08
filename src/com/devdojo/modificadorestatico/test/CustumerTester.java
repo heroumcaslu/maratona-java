@@ -6,6 +6,7 @@ public class CustumerTester {
 
 	public static void main(String[] args) {
 		
+		@SuppressWarnings("unused")
 		Customer c = new Customer();
 		
 		System.out.println("Exibindo a quantidade de parcelas possíveis");
