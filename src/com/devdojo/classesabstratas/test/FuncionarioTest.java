@@ -4,6 +4,7 @@ import com.devdojo.classesabstratas.Funcionario;
 import com.devdojo.classesabstratas.Gerente;
 import com.devdojo.classesabstratas.Vendedor;
 
+@SuppressWarnings("unused")
 public class FuncionarioTest {
 
 	public static void main(String[] args) {
