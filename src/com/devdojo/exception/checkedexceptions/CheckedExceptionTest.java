@@ -37,5 +37,30 @@ public class CheckedExceptionTest {
 		}
 
 	}
+	
+	public static String abrirArquivo() throws IOException {
+
+		try {
+
+			System.out.println("Abrindo um arquivo");
+			System.out.println("Lendo um arquivo");
+			//throw new Exception();
+			System.out.println("Escrevendo no arquivo");
+			//System.out.println("Fechar o arquivo");
+			return "valor";
+
+		} catch (Exception e) {
+
+			// e.printStackTrace();
+			e.getMessage();
+			
+		} finally {
+			
+			System.out.println("Fechar o arquivo");
+			
+		}
+		return null;
+
+	}
 
 }
