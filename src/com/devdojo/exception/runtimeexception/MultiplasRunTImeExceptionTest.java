@@ -49,6 +49,21 @@ public class MultiplasRunTImeExceptionTest {
 			
 		}
 		
+		//A partir do java 7 foi implementado o multicatch
+		try {
+			
+			talvezLanceException();
+			
+		//multicatch	
+		} catch(SQLException | IOException e) {
+			
+			e.getMessage();
+			System.out.println("Uma das exceções foi capturada.");
+			//Pra evitar a repetição de códio o método deve receber Exception apenas
+			//e a exceção deve ser lançada no método.
+			
+		}
+		
 	}
 	private static void talvezLanceException() throws SQLException, FileNotFoundException {
 		
