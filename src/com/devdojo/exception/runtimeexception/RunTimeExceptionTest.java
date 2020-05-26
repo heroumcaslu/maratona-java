@@ -42,6 +42,7 @@ public class RunTimeExceptionTest {
 
 	}
 	
+	@SuppressWarnings("unused")
 	private static void divisao(double num, double num2) {
 		if(num == 0|| num2 == 0) {
 			
