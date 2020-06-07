@@ -14,6 +14,8 @@ public class RegEx {
 		// \w - procura por caracteres de palavras a-z, A-Z, 0-9 e underline
 		// \W - não é caractere de palavra
 		//String regex = "\\d";
+		//String regex = "[a-zABC]"; //Procura por esses caracteres
+		int hex = 0x100; //hexadecimal
 		String regex = "ab";
 		//Não reutiliza caracteres já utilizados, por exemplo aba em abababa encontra a posição 0 e 4
 		String txt = "abaaaabaaabaaab";
@@ -25,7 +27,7 @@ public class RegEx {
 		System.out.println("Posições encontradas");
 		while(matcher.find()) {
 			
-			System.out.println(matcher.start()+" ");
+			System.out.println(matcher.start()+" "+matcher.group());
 			
 		}
 		
