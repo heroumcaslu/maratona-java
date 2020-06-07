@@ -15,7 +15,19 @@ public class RegEx {
 		// \W - não é caractere de palavra
 		//String regex = "\\d";
 		//String regex = "[a-zABC]"; //Procura por esses caracteres
+		//[]
+		//quantificadores
+		// ? zero ou uma
+		// * zero ou mais
+		// + uma ou mais
+		// {n, m} n até m ocorrencias
+		// () - agrupar
+		// | - ou
+		// $ - fim da linha
+		// ^ - inicio
+		// o(v|c)o
 		int hex = 0x100; //hexadecimal
+		//String regex = "0[xX]([0-9a-fA-f])+(\\s|$)";
 		String regex = "ab";
 		//Não reutiliza caracteres já utilizados, por exemplo aba em abababa encontra a posição 0 e 4
 		String txt = "abaaaabaaabaaab";
