@@ -15,7 +15,7 @@ public class RegEx {
 		// \W - não é caractere de palavra
 		//String regex = "\\d";
 		//String regex = "[a-zABC]"; //Procura por esses caracteres
-		//[]
+		//[] - range
 		//quantificadores
 		// ? zero ou uma
 		// * zero ou mais
@@ -25,12 +25,23 @@ public class RegEx {
 		// | - ou
 		// $ - fim da linha
 		// ^ - inicio
+		// . CORINGA
 		// o(v|c)o
 		int hex = 0x100; //hexadecimal
 		//String regex = "0[xX]([0-9a-fA-f])+(\\s|$)";
-		String regex = "ab";
+		//String regex = "ab";
 		//Não reutiliza caracteres já utilizados, por exemplo aba em abababa encontra a posição 0 e 4
-		String txt = "abaaaabaaabaaab";
+		//String txt = "abaaaabaaabaaab";
+		
+		String regex = "([a-zA-Z0-9\\._-])+@([a-zA-Z])+(\\.([a-zA-Z])+)+"; // "([\\w\\._-])+@([a-zA-Z])+(\\.([a-zA-Z])+)+";
+		String txt = "fulano@hotmail.com, 102Abc@gmail.com, #@!abrao@mail.br, teste@gmail.br teate@mail";
+		
+		//String regex = "\\d{2}/\\d{2}/\\d{2,4};
+		//String txt = "01/01/2020";
+		
+		
+		System.out.println("#@!abrao@mail.br".matches(regex));
+		
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(txt);
 		System.out.println("texto:  "+txt);
