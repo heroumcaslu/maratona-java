@@ -27,6 +27,7 @@ public class RegEx {
 		// ^ - negação - inicio
 		// . CORINGA
 		// o(v|c)o
+		@SuppressWarnings("unused")
 		int hex = 0x100; //hexadecimal
 		//String regex = "0[xX]([0-9a-fA-f])+(\\s|$)";
 		//String regex = "ab";
