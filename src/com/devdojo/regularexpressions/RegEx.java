@@ -24,7 +24,7 @@ public class RegEx {
 		// () - agrupar
 		// | - ou
 		// $ - fim da linha
-		// ^ - inicio
+		// ^ - negação - inicio
 		// . CORINGA
 		// o(v|c)o
 		int hex = 0x100; //hexadecimal
@@ -35,6 +35,8 @@ public class RegEx {
 		
 		String regex = "([a-zA-Z0-9\\._-])+@([a-zA-Z])+(\\.([a-zA-Z])+)+"; // "([\\w\\._-])+@([a-zA-Z])+(\\.([a-zA-Z])+)+";
 		String txt = "fulano@hotmail.com, 102Abc@gmail.com, #@!abrao@mail.br, teste@gmail.br teate@mail";
+		//String regex = "proj([^,])";
+		//String txt = "fulano@hotmail.com, 102Abc@gmail.com, #@!abrao@mail.br, teste@gmail.br teate@mail";
 		
 		//String regex = "\\d{2}/\\d{2}/\\d{2,4};
 		//String txt = "01/01/2020";
