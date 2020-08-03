@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.DosFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +54,10 @@ public class AtributosBasicosTest {
 		FileTime lastAccess = basicAttr.lastAccessTime();
 		BasicFileAttributeView basicView = Files.getFileAttributeView(path, BasicFileAttributeView.class);
 		basicView.setTimes(lastModified, lastAccess, created);
+		basicAttr = Files.readAttributes(path, BasicFileAttributes.class);
+		System.out.println("create: "+basicAttr.creationTime());
+		System.out.println("lastAccess"+basicAttr.lastAccessTime());
+		System.out.println("LastModified:"+basicAttr.lastModifiedTime());
 		
 
 	}
