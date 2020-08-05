@@ -10,6 +10,7 @@ public class ResolvendoPaths {
 		Path dir = Paths.get("home\\lucas");
 		Path arquivo = Paths.get("dev\\arquivo.txt");
 		
+		@SuppressWarnings("unused")
 		Path result = dir.resolve(arquivo);
 		
 		Path abs = Paths.get("/home/lucas");

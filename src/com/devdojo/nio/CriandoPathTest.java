@@ -9,6 +9,7 @@ import java.nio.file.StandardCopyOption;
 
 public class CriandoPathTest {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Path p1 = Paths.get("home/lucas/Documents", "filesjava");
 		Path p2 = Paths.get("home/lucas/Documents", "filesjava");

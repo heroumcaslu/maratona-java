@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.DosFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.Calendar;
 import java.util.Date;
