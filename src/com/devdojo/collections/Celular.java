@@ -63,4 +63,11 @@ public class Celular {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Celular [nome=" + nome + ", IMEI=" + IMEI + "]";
+	}
+	
+	
+
 }
