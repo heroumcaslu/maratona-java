@@ -17,6 +17,11 @@ public class Celular {
 	//Transitividade para x, y, z diferentes de null, se x.equals(y) == true, x.equals(z) == true log y.equals(z) == true
 	//Consistente x.equals(y) deve sempre retornar o mesmo valor
 	//para x diferente de null x.equals(null) tem que retornar false
+	//Para hashcode
+	//se x.equals(y) == true y.hashCode() == x.hashCode() == true;
+	//se y.hashCode() == x.hashCode() == true, y.equals(x) pode ser false;
+	//se x.equals(y) == false não verifica hashcode
+	//se y.hashCode() != x.hashCode(), x.equals(y) deverá ser false
 	
 	public String getNome() {
 		return nome;
@@ -50,5 +55,12 @@ public class Celular {
 		
 	}
 	
+	@Override
+	public int hashCode() {
+		
+		//é um código válido mas põe todo mundodentro da mesma caixa.
+		return IMEI != null ? IMEI.hashCode() : 1;
+		
+	}
 
 }
