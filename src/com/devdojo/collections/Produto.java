@@ -67,6 +67,7 @@ public class Produto implements Comparable<Produto> {
 		return "Produto [serialNumber=" + serialNumber + ", nome=" + nome + ", preco=" + preco + "]";
 	}
 
+	//Não é uma boa ideia mudar, usar o comparator pra isso
 	@Override
 	public int compareTo(Produto o) {
 		// TODO Auto-generated method stub
