@@ -55,6 +55,19 @@ public class BinarySearchTest {
 			System.out.println(produto);
 			
 		}
+		
+		
+		//exemplo de inserção
+		int index = Collections.binarySearch(produtos, monitor, new ProdutoNomeComparator());
+		if(index >= 0) {
+			
+			System.out.println(produtos.get(index));
+			
+		} else  {
+			
+			produtos.add(index, monitor);
+			
+		}
 				
 	}
 	
