@@ -26,7 +26,7 @@ public class ConversãoDeListasArraysTest {
 		@SuppressWarnings("unused")
 		Object[] objects = numeros.toArray();
 		
-		//Forma 1 Array to list
+		//Forma 1 Array to list-
 		//Ocupa o mesmo lugar no heap, a alteração de um ocorre no outro
 		//Se quiser adicionar UnsuportedOperation
 		@SuppressWarnings("unused")
@@ -35,8 +35,6 @@ public class ConversãoDeListasArraysTest {
 		//Forma 2
 		List<Integer> ints = new ArrayList<Integer>();
 		ints.addAll(Arrays.asList(arrayInt));
-		
-		
 
 	}
 

@@ -5,12 +5,29 @@ public class Produto implements Comparable<Produto> {
 	private String serialNumber;
 	private String nome;
 	private double preco;
+	private int quantidade;
 
 	public Produto(String serialNumber, String nome, double preco) {
 		super();
 		this.serialNumber = serialNumber;
 		this.nome = nome;
 		this.preco = preco;
+	}
+
+	public Produto(String serialNumber, String nome, double preco, int quantidade) {
+		super();
+		this.serialNumber = serialNumber;
+		this.nome = nome;
+		this.preco = preco;
+		this.quantidade = quantidade;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public String getNome() {
@@ -64,7 +81,8 @@ public class Produto implements Comparable<Produto> {
 
 	@Override
 	public String toString() {
-		return "Produto [serialNumber=" + serialNumber + ", nome=" + nome + ", preco=" + preco + "]";
+		return "Produto [serialNumber=" + serialNumber + ", nome=" + nome + ", preco=" + preco + ", quantidade="
+				+ quantidade + "]";
 	}
 
 	//Não é uma boa ideia mudar, usar o comparator pra isso
