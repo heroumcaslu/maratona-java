@@ -1,5 +1,7 @@
 package com.devdojo.collections;
 
+import java.util.Comparator;
+
 public class Celular {
 
 	private String nome;
