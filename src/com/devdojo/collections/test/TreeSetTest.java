@@ -44,7 +44,7 @@ public class TreeSetTest {
 		//Encontra o mais barato antes do produto celular
 		System.out.println(produtoNavSet.lower(celular));
 		
-		//pega o primeiro elemento e remove poolLast paga o ultimo.
+		//pega o primeiro elemento e remove pollLast paga o ultimo.
 		System.out.println(produtoNavSet.pollFirst());
 
 	}
