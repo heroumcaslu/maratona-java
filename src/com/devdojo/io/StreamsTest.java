@@ -12,6 +12,7 @@ public class StreamsTest {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void gravador() {
 
 		byte[] dados = { 65, 66, 67, 68, 69, 70 };
@@ -36,6 +37,7 @@ public class StreamsTest {
 	}
 	
 	//Buffered
+	@SuppressWarnings("unused")
 	private static void gravadorTunado() {
 
 		byte[] dados = { 65, 66, 67, 68, 69, 70 };
@@ -58,6 +60,7 @@ public class StreamsTest {
 
 	}
 
+	@SuppressWarnings("unused")
 	private static void leitor() {
 
 		try (FileInputStream leitor = new FileInputStream("/pasta/stream.txt")) {
@@ -77,6 +80,7 @@ public class StreamsTest {
 
 	}
 	
+	@SuppressWarnings("unused")
 	private static void leitorTunado() {
 
 		try (BufferedInputStream leitorBuffered = new BufferedInputStream(new FileInputStream("/pasta/stream.txt"))) {
