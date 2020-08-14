@@ -1,6 +1,8 @@
 package com.devdojo.generics;
 
-public class Carro {
+import java.util.Comparator;
+
+public class Carro implements Comparable<Carro> {
 
 	private String nome;
 
@@ -20,6 +22,12 @@ public class Carro {
 	@Override
 	public String toString() {
 		return "Carro [nome=" + nome + "]";
+	}
+
+	@Override
+	public int compareTo(Carro o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
