@@ -11,7 +11,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.JdbcRowSet;
+
 import com.devdojo.jdbc.classes.Comprador;
+import com.devdojo.jdbc.classes.MyRowSetListener;
 import com.devdojo.jdbc.conn.ConexaoFactory;
 
 public class CompradorDB {
@@ -117,6 +120,44 @@ public class CompradorDB {
 			ps.executeUpdate();
 			
 			ConexaoFactory.close(conn, ps);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void updateRowSet(Comprador comprador) {
+
+		if (comprador == null || comprador.getId() == null) {
+
+			System.out.println("Não foi possivel atualizar");
+			return;
+
+		}
+
+		//String sql = "UPDATE agencia.comprador SET cpf = ? nome = ? WHERE idcomprador = ?";
+		String sql = "SELECT * FROM agencia.comprador WHERE idcomprador = ?";
+		
+		JdbcRowSet jrs = ConexaoFactory.getRowSetConnection();
+
+		jrs.addRowSetListener(new MyRowSetListener());
+		
+		try {
+			
+			jrs.setCommand(sql);
+			
+			jrs.setInt(1, comprador.getId());
+			
+			jrs.execute();
+			
+			jrs.next();
+			
+			jrs.updateString("compradornome", "William");
+			jrs.updateRow();
+			
+			ConexaoFactory.close(jrs);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -310,6 +351,49 @@ public class CompradorDB {
 			}
 
 			ConexaoFactory.close(conn, ps, rs);
+
+			return compradores;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public static List<Comprador> selectByNameRowSet(String nome) {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador compradornome LIKE ?";
+
+		
+		//não pode utilizar comandos update, insert ou delete, tem que alterar o rs
+		JdbcRowSet jrs = ConexaoFactory.getRowSetConnection();
+		
+		jrs.addRowSetListener(new MyRowSetListener());
+
+		try {
+
+			jrs.setCommand(sql);
+			
+			//PreparedStatement ps = conn.prepareStatement(sql);
+			jrs.setString(1, nome);
+			
+			jrs.execute();
+
+			List<Comprador> compradores = new ArrayList<Comprador>();
+
+			while (jrs.next()) {
+
+				Integer id = jrs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = jrs.getString("compradorcpf");
+				String name = jrs.getString(3);// comprador nome
+
+				compradores.add(new Comprador(id, cpf, name));
+
+			}
+
+			ConexaoFactory.close(jrs);
 
 			return compradores;
 
