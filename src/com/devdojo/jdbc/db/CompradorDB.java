@@ -2,6 +2,7 @@ package com.devdojo.jdbc.db;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -84,6 +85,37 @@ public class CompradorDB {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			ConexaoFactory.close(conn, stmt);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void updatePrepared(Comprador comprador) {
+
+		if (comprador == null || comprador.getId() == null) {
+
+			System.out.println("Não foi possivel atualizar");
+			return;
+
+		}
+
+		String sql = "UPDATE agencia.comprador SET cpf = ? nome = ? WHERE idcomprador = ?";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, comprador.getCpf());
+			ps.setString(2, comprador.getNome());
+			ps.setInt(3, comprador.getId());
+			
+			ps.executeUpdate();
+			
+			ConexaoFactory.close(conn, ps);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -203,6 +235,43 @@ public class CompradorDB {
 			}
 
 			ConexaoFactory.close(conn, stmt, rs);
+
+			return compradores;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public static List<Comprador> selectByNamePreparedStatement(String nome) {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador compradornome LIKE ?";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, nome);
+			
+			ResultSet rs = ps.executeQuery();
+
+			List<Comprador> compradores = new ArrayList<Comprador>();
+
+			while (rs.next()) {
+
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String name = rs.getString(3);// comprador nome
+
+				compradores.add(new Comprador(id, cpf, name));
+
+			}
+
+			ConexaoFactory.close(conn, ps, rs);
 
 			return compradores;
 
