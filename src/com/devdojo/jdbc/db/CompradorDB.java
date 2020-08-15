@@ -126,7 +126,7 @@ public class CompradorDB {
 		return null;
 
 	}
-	
+
 	public static void testTypeScroll() {
 
 		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador;";
@@ -143,39 +143,39 @@ public class CompradorDB {
 				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
 				String cpf = rs.getString("compradorcpf");
 				String nome = rs.getString(3);// comprador nome
-				System.out.println("Ultima linha: "+new Comprador(id, cpf, nome));
-				System.out.println("Numero ultima linha: "+rs.getRow());
+				System.out.println("Ultima linha: " + new Comprador(id, cpf, nome));
+				System.out.println("Numero ultima linha: " + rs.getRow());
 
 			}
-			//Movendo o cursor
-			rs.first();//retornando para a primeira linha retorna um booleano
-			rs.absolute(1);//diretamente para a linha informada
-			rs.relative(-1);//mover baseado na linha atual ex linha 4 -1 linha 3
+			// Movendo o cursor
+			rs.first();// retornando para a primeira linha retorna um booleano
+			rs.absolute(1);// diretamente para a linha informada
+			rs.relative(-1);// mover baseado na linha atual ex linha 4 -1 linha 3
 			rs.isLast();
 			rs.isAfterLast();
 			rs.isFirst();
 			rs.isBeforeFirst();
-			
-			//move pro fim
+
+			// move pro fim
 			rs.afterLast();
-			
-			//executa ao contrario
-			while(rs.previous()) {
-				
+
+			// executa ao contrario
+			while (rs.previous()) {
+
 				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
 				String cpf = rs.getString("compradorcpf");
 				String nome = rs.getString(3);// comprador nome
 				System.out.println(new Comprador(id, cpf, nome));
-				
+
 			}
 
 			ConexaoFactory.close(conn, stmt, rs);
-	
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static List<Comprador> selectByName(String nome) {
@@ -255,12 +255,12 @@ public class CompradorDB {
 		try {
 
 			DatabaseMetaData dbmd = conn.getMetaData();
-			
-			//MOVER O CURSOR PARA FRENTE
+
+			// MOVER O CURSOR PARA FRENTE
 			if (dbmd.supportsResultSetType(ResultSet.TYPE_FORWARD_ONLY)) {
 
 				System.out.println("suporta Type forward only");
-				//UPDATE COM RESULTSET ABERTO
+				// UPDATE COM RESULTSET ABERTO
 				if (dbmd.supportsResultSetConcurrency(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
 
 					System.out.println("também Suporta concurupdatable");
@@ -269,7 +269,8 @@ public class CompradorDB {
 
 			}
 
-			//MOVER O CURSOR PARA FRENTE E PARA TRÁS OU PARAR EM UMA POSIÇÃO qualque mudança não afeta o banco
+			// MOVER O CURSOR PARA FRENTE E PARA TRÁS OU PARAR EM UMA POSIÇÃO qualque
+			// mudança não afeta o banco
 			if (dbmd.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE)) {
 
 				System.out.println("suporta Type forward only");
@@ -280,8 +281,8 @@ public class CompradorDB {
 				}
 
 			}
-			
-			//MOVE PARA FRENTE E TRÁS MAS AS MUDANÇAS SÃO REFLETIDAS NO BANCO
+
+			// MOVE PARA FRENTE E TRÁS MAS AS MUDANÇAS SÃO REFLETIDAS NO BANCO
 			if (dbmd.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE)) {
 
 				System.out.println("suporta Type forward only");
@@ -296,6 +297,52 @@ public class CompradorDB {
 
 		} catch (SQLException e) {
 			// TODO: handle exception
+		}
+
+	}
+
+	public static void updateNomesToLower() {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador;";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			DatabaseMetaData dbmd = conn.getMetaData();
+			
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			ResultSet rs = stmt.executeQuery(sql);
+
+			System.out.println(dbmd.updatesAreDetected(ResultSet.TYPE_SCROLL_INSENSITIVE));
+			
+			while (rs.next()) {
+
+				//update no banco não reflete no resultset
+				rs.updateString("compradornome", rs.getString("nome").toLowerCase());
+				
+				//rs.cancelRowUpdates();//tem que ser antes do update row
+				
+				rs.updateRow();
+			
+			}
+			
+			rs.absolute(2);
+			String nome = rs.getString("nome");
+			rs.moveToInsertRow();
+			rs.updateString("nome", nome.toUpperCase());
+			rs.updateString("cpf", "999.999.999-20");
+			rs.insertRow();
+			rs.moveToCurrentRow();
+			
+			rs.absolute(7);
+			rs.deleteRow();
+
+			ConexaoFactory.close(conn, stmt, rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
