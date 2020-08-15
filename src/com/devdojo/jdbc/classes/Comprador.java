@@ -50,6 +50,11 @@ public class Comprador {
 	}
 
 	@Override
+	public String toString() {
+		return "Comprador [id=" + id + ", cpf=" + cpf + ", nome=" + nome + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

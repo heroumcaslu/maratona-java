@@ -1,8 +1,13 @@
 package com.devdojo.jdbc.db;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.devdojo.jdbc.classes.Comprador;
 import com.devdojo.jdbc.conn.ConexaoFactory;
@@ -47,11 +52,12 @@ public class CompradorDB {
 
 		Connection conn = ConexaoFactory.getConnection();
 
-		Statement stmt;
 		try {
-			stmt = conn.createStatement();
+
+			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			ConexaoFactory.close(conn, stmt);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,18 +74,177 @@ public class CompradorDB {
 
 		}
 
-		String sql = "UPDATE agencia.comprador SET cpf = '"+comprador.getCpf()+"' nome = '"+comprador.getNome()+"' WHERE idcomprador ='" + comprador.getId() + "'";
+		String sql = "UPDATE agencia.comprador SET cpf = '" + comprador.getCpf() + "' nome = '" + comprador.getNome()
+				+ "' WHERE idcomprador ='" + comprador.getId() + "'";
 
 		Connection conn = ConexaoFactory.getConnection();
 
-		Statement stmt;
 		try {
-			stmt = conn.createStatement();
+
+			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			ConexaoFactory.close(conn, stmt);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+
+	public static List<Comprador> selectAll() {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador;";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			List<Comprador> compradores = new ArrayList<Comprador>();
+
+			while (rs.next()) {
+
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String nome = rs.getString(3);// comprador nome
+
+				compradores.add(new Comprador(id, cpf, nome));
+
+			}
+
+			ConexaoFactory.close(conn, stmt, rs);
+
+			return compradores;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	public static List<Comprador> selectByName(String nome) {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador compradornome LIKE '"
+				+ nome + "';";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			List<Comprador> compradores = new ArrayList<Comprador>();
+
+			while (rs.next()) {
+
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String name = rs.getString(3);// comprador nome
+
+				compradores.add(new Comprador(id, cpf, name));
+
+			}
+
+			ConexaoFactory.close(conn, stmt, rs);
+
+			return compradores;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	public static void selectMetadata() {
+
+		String sql = "SELECT * FROM agencia.comprador;";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			ResultSetMetaData rsmd = rs.getMetaData();
+
+			rs.next();
+
+			int qtdColunas = rsmd.getColumnCount();
+			System.out.println("Colunas: " + qtdColunas);
+
+			for (int i = 1; i <= qtdColunas; i++) {
+
+				System.out.println("Tabela: " + rsmd.getTableName(i));
+				System.out.println("Nome coluna: " + rsmd.getColumnName(i));
+				System.out.println("Tamanho da coluna: " + rsmd.getColumnDisplaySize(i));
+
+			}
+
+			ConexaoFactory.close(conn, stmt, rs);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void checkDriverStatus() {
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			DatabaseMetaData dbmd = conn.getMetaData();
+			
+			//MOVER O CURSOR PARA FRENTE
+			if (dbmd.supportsResultSetType(ResultSet.TYPE_FORWARD_ONLY)) {
+
+				System.out.println("suporta Type forward only");
+				//UPDATE COM RESULTSET ABERTO
+				if (dbmd.supportsResultSetConcurrency(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+
+					System.out.println("também Suporta concurupdatable");
+
+				}
+
+			}
+
+			//MOVER O CURSOR PARA FRENTE E PARA TRÁS OU PARAR EM UMA POSIÇÃO qualque mudança não afeta o banco
+			if (dbmd.supportsResultSetType(ResultSet.TYPE_SCROLL_INSENSITIVE)) {
+
+				System.out.println("suporta Type forward only");
+				if (dbmd.supportsResultSetConcurrency(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+
+					System.out.println("também Suporta concurupdatable");
+
+				}
+
+			}
+			
+			//MOVE PARA FRENTE E TRÁS MAS AS MUDANÇAS SÃO REFLETIDAS NO BANCO
+			if (dbmd.supportsResultSetType(ResultSet.TYPE_SCROLL_SENSITIVE)) {
+
+				System.out.println("suporta Type forward only");
+				if (dbmd.supportsResultSetConcurrency(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE)) {
+
+					System.out.println("também Suporta concurupdatable");
+
+				}
+
+			}
+			ConexaoFactory.close(conn);
+
+		} catch (SQLException e) {
+			// TODO: handle exception
 		}
 
 	}

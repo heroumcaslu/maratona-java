@@ -2,6 +2,7 @@ package com.devdojo.jdbc.test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.devdojo.jdbc.classes.Comprador;
 import com.devdojo.jdbc.conn.ConexaoFactory;
@@ -17,7 +18,8 @@ public class TestaConexao {
 		 * block e.printStackTrace(); }
 		 */
 
-		insert();
+		//List<Comprador> list = selectAll();
+		//System.out.println(list);
 
 	}
 
@@ -45,6 +47,12 @@ public class TestaConexao {
 		cmp.setId(1);
 		CompradorDB.update(cmp);
 
+	}
+	
+	public static List<Comprador> selectAll() {
+		
+		return CompradorDB.selectAll();
+		
 	}
 
 }
