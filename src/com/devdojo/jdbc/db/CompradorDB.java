@@ -126,6 +126,57 @@ public class CompradorDB {
 		return null;
 
 	}
+	
+	public static void testTypeScroll() {
+
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador;";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String nome = rs.getString(3);// comprador nome
+				System.out.println("Ultima linha: "+new Comprador(id, cpf, nome));
+				System.out.println("Numero ultima linha: "+rs.getRow());
+
+			}
+			//Movendo o cursor
+			rs.first();//retornando para a primeira linha retorna um booleano
+			rs.absolute(1);//diretamente para a linha informada
+			rs.relative(-1);//mover baseado na linha atual ex linha 4 -1 linha 3
+			rs.isLast();
+			rs.isAfterLast();
+			rs.isFirst();
+			rs.isBeforeFirst();
+			
+			//move pro fim
+			rs.afterLast();
+			
+			//executa ao contrario
+			while(rs.previous()) {
+				
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String nome = rs.getString(3);// comprador nome
+				System.out.println(new Comprador(id, cpf, nome));
+				
+			}
+
+			ConexaoFactory.close(conn, stmt, rs);
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	public static List<Comprador> selectByName(String nome) {
 
