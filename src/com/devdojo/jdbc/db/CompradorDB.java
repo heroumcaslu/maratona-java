@@ -1,5 +1,6 @@
 package com.devdojo.jdbc.db;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -235,6 +236,43 @@ public class CompradorDB {
 			}
 
 			ConexaoFactory.close(conn, stmt, rs);
+
+			return compradores;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public static List<Comprador> selectByNameCallable(String nome) {
+
+		String sql = "CALL sp_getCompradoresPorNome( ? )";
+
+		Connection conn = ConexaoFactory.getConnection();
+
+		try {
+
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, nome);
+			
+			ResultSet rs = cs.executeQuery(sql);
+
+			List<Comprador> compradores = new ArrayList<Comprador>();
+
+			while (rs.next()) {
+
+				Integer id = rs.getInt("idcomprador");// ou indice que começa em 1
+				String cpf = rs.getString("compradorcpf");
+				String name = rs.getString(3);// comprador nome
+
+				compradores.add(new Comprador(id, cpf, name));
+
+			}
+
+			ConexaoFactory.close(conn, cs, rs);
 
 			return compradores;
 
