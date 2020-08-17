@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.JdbcRowSet;
 
 import com.devdojo.jdbc.classes.Comprador;
@@ -159,6 +160,44 @@ public class CompradorDB {
 			
 			ConexaoFactory.close(jrs);
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	//CachedRowSet
+	public static void updateRowSetCachedRS(Comprador comprador) {
+
+		if (comprador == null || comprador.getId() == null) {
+
+			System.out.println("Não foi possivel atualizar");
+			return;
+
+		}
+
+
+		String sql = "SELECT * FROM agencia.comprador WHERE idcomprador = ?";
+		
+		CachedRowSet crs = ConexaoFactory.getRowSetConnectionCached();
+				
+		try {
+			
+			crs.setCommand(sql);
+			
+			crs.setInt(1, comprador.getId());
+			
+			crs.execute();
+			
+			crs.next();
+			
+			crs.updateString("compradornome", "WWW");
+			crs.updateRow();
+			//Thread.sleep(8000);
+			crs.acceptChanges();
+
+			//| InterruptedException 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

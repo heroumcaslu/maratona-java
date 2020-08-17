@@ -20,6 +20,7 @@ public class TestaConexao {
 
 		//List<Comprador> list = selectAll();
 		//System.out.println(list);
+		CompradorDB.updateRowSetCachedRS(new Comprador(1, "Lucas", ""));
 
 	}
 

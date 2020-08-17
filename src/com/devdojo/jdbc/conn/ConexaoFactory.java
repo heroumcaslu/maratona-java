@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.JdbcRowSet;
 import javax.sql.rowset.RowSetProvider;
 
@@ -16,7 +17,7 @@ public class ConexaoFactory {
 	public static Connection getConnection() {
 
 		// eliminar warning = ?useSSL=false
-		String url = "jdbc:mysql://localhost:3306/agencia";
+		String url = "jdbc:mysql://localhost:3306/agencia?useSSL=false&relaxAutoCommit=true";
 		String user = "root";
 		String password = "root";
 
@@ -63,8 +64,34 @@ public class ConexaoFactory {
 		return null;
 
 	}
-
 	
+	public static CachedRowSet getRowSetConnectionCached() {
+
+		// eliminar warning = ?useSSL=false
+		String url = "jdbc:mysql://localhost:3306/agencia";
+		String user = "root";
+		String password = "root";
+
+		try {
+
+		
+			CachedRowSet cachedRs = RowSetProvider.newFactory().createCachedRowSet();
+			
+			cachedRs.setUrl(url);
+			cachedRs.setUsername(user);
+			cachedRs.setPassword(password);
+			
+			return cachedRs;
+
+			//| ClassNotFoundException 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
 	public static void close(Connection con) {
 
 		try {
