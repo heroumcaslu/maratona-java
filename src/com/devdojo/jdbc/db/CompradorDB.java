@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,48 @@ public class CompradorDB {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+	
+	public static void saveTransaction() {
+
+		String sql = "INSERT INTO agencia.comprador (compradorcpf, compradornome) VALUES ('002.515.854-81', 'teste');";
+		String sql2 = "INSERT INTO agencia.comprador (compradorcpf, compradornome) VALUES ('002.515.854-82', 'teste2');";
+		String sql3 = "INSERT INTO agencia.comprador (compradorcpf, compradornome) VALUES ('002.515.854-83', 'teste3');";
+
+		Connection conn = ConexaoFactory.getConnection();
+		
+		Savepoint savepoint= null;
+
+		try {
+
+			conn.setAutoCommit(false);
+			
+			Statement stmt = conn.createStatement();
+
+			stmt.executeUpdate(sql);
+			
+			savepoint = conn.setSavepoint("one");
+			//conn.releaseSavepoint(savepoint);
+			stmt.executeUpdate(sql2);
+			stmt.executeUpdate(sql3);
+			if(true)
+				throw new SQLException();
+			conn.commit();
+
+			ConexaoFactory.close(conn, stmt);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				conn.rollback(savepoint);
+				conn.commit();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
