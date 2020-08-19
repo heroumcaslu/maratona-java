@@ -336,7 +336,7 @@ public class CompradorDB {
 
 	public static List<Comprador> selectByName(String nome) {
 
-		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador compradornome LIKE '"
+		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador where compradornome LIKE '"
 				+ nome + "';";
 
 		Connection conn = ConexaoFactory.getConnection();

@@ -7,155 +7,72 @@ import com.devdojo.jdbc.classes.Comprador;
 import com.devdojo.jdbc.db.CompradorDAO;
 
 public class TestCrud {
-	
+
 	private static Scanner teclado = new Scanner(System.in);
-	
+
 	public static void main(String[] args) {
-		
+
 		int op;
-		while(true) {
-			
+		while (true) {
+
 			menu();
 			op = Integer.parseInt(teclado.nextLine());
-			if(op == 0) {
-				
+			if (op == 0) {
+
 				System.out.println("Saindo do sistema");
 				break;
+
+			}
+			if(op == 1) {
+				
+				menuComprador();
+				op = Integer.parseInt(teclado.nextLine());
+				CompradorCRUD.executar(op);
+			
+			}
+			if(op == 2) {
+				
+				menuCarro();
+				op = Integer.parseInt(teclado.nextLine());
+				CarroCRUD.executar(op);
 				
 			}
-			executar(op);
-			
+
 		}
-		
+
 	}
 	
-	
-	
-	private static void executar(int op) {
-		// TODO Auto-generated method stub
-		switch(op) {
+	private static void menu() {
 		
-			case 1:
-				inserir();
-				break;
-			case 2:
-				atualizar();
-				break;
-			case 3:
-				listAll();
-				break;
-			case 4:
-				System.out.println("Digite um nome:");
-				searchByName(teclado.nextLine());
-				break;
-			case 5:
-				remove();
-				break;
-			default:
-				System.out.println("Selecione uma opção entre 0 e 5 para continuar");
-				break;
-		
-		}
+		System.out.println("Selecione uma opção:");
+		System.out.println("1. Comprador");
+		System.out.println("2. Carro");
+		System.out.println("0. Sair");
 		
 	}
 
+	public static void menuComprador() {
 
-
-	private static void remove() {
-		// TODO Auto-generated method stub
-		System.out.println("Selecione um dos compradores para deletar:");
-		List<Comprador> compradores = listAll();
-		int index = Integer.parseInt(teclado.nextLine());
-		
-		System.out.println("Tem certeza? Y/n");
-		String op = teclado.nextLine();
-		if(op.toUpperCase().startsWith("Y") | op.isEmpty()) {
-			
-			CompradorDAO.remove(compradores.get(index));
-			
-		}
-		
-	}
-
-
-
-	private static void searchByName(String nome) {
-		// TODO Auto-generated method stub
-		
-		List<Comprador> compradores = CompradorDAO.selectByName(nome);
-		for(int i = 0; i < compradores.size(); i++) {
-			
-			Comprador c = compradores.get(i);
-			System.out.println(c);
-			
-		}
-		
-	}
-
-
-
-	private static List<Comprador> listAll() {
-		// TODO Auto-generated method stub
-		List<Comprador> compradores = CompradorDAO.selectAll();
-		for(int i = 0; i < compradores.size(); i++) {
-			
-			Comprador c = compradores.get(i);
-			System.out.println(c);
-			
-		}
-		return compradores;
-		
-	}
-
-
-
-	private static void atualizar() {
-		// TODO Auto-generated method stub
-		
-		System.out.println("Selecione um dos compradores abaixo");
-		List<Comprador> compradores = listAll();
-		Comprador c = compradores.get(Integer.parseInt(teclado.nextLine()));
-		System.out.println("Novo nome ou enter para manter:");
-		String nome = teclado.nextLine();
-		System.out.println("Novo cpf ou enter para manter");
-		String cpf = teclado.nextLine();
-		
-		if(!nome.isEmpty())			
-			c.setNome(nome);
-		if(!cpf.isEmpty())
-			c.setCpf(cpf);
-		
-		CompradorDAO.update(c);		
-		
-	}
-
-
-
-	private static void inserir() {
-		// TODO Auto-generated method stub
-		
-		Comprador c = new Comprador();
-		System.out.println("Nome: ");
-		c.setNome(teclado.nextLine());
-		System.out.println("CPF: ");
-		c.setCpf(teclado.nextLine());
-		
-		CompradorDAO.save(c);
-		
-	}
-
-
-
-	public static void menu() {
-		
 		System.out.println("Digite a opção para começar:");
 		System.out.println("1. Inserir comprador");
 		System.out.println("2. Atualizar comprador");
 		System.out.println("3. Listar todos compradores");
 		System.out.println("4. Buscar comprador por nome");
 		System.out.println("5. Deletar");
-		System.out.println("0. Sair");
-		
+		System.out.println("9. Voltar");
+
+	}
+
+	public static void menuCarro() {
+
+		System.out.println("Digite a opção para começar:");
+		System.out.println("1. Inserir carro");
+		System.out.println("2. Atualizar carro");
+		System.out.println("3. Listar todos carros");
+		System.out.println("4. Buscar comprador por nome");
+		System.out.println("5. Deletar");
+		System.out.println("9. Voltar");
+
 	}
 
 }

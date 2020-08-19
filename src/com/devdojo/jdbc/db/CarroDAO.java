@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +11,17 @@ import com.devdojo.jdbc.classes.Carro;
 import com.devdojo.jdbc.classes.Comprador;
 import com.devdojo.jdbc.conn.ConexaoFactory;
 
-public class CompradorDAO {
+public class CarroDAO {
 
-	public static void save(Comprador comprador) {
+	public static void save(Carro carro) {
 
-		String sql = "INSERT INTO agencia.comprador (compradorcpf, compradornome) VALUES (?, ?);";
+		String sql = "INSERT INTO agencia.carro (nome, placa, compradorid) VALUES (?, ?, ?);";
 
 		try (Connection conn = ConexaoFactory.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
-			pstmt.setString(1, comprador.getCpf());
-			pstmt.setString(2, comprador.getNome());
+			pstmt.setString(1, carro.getNome());
+			pstmt.setString(2, carro.getPlaca());
+			pstmt.setInt(3, carro.getComprador().getId());
 
 			pstmt.executeUpdate();
 
@@ -32,20 +32,20 @@ public class CompradorDAO {
 
 	}
 
-	public static void remove(Comprador comprador) {
+	public static void remove(Carro Carro) {
 
-		if (comprador == null || comprador.getId() == null) {
+		if (Carro == null || Carro.getId() == null) {
 
 			System.out.println("Não foi possivel excluir");
 			return;
 
 		}
 
-		String sql = "DELETE FROM agencia.comprador WHERE idcomprador = ?";
+		String sql = "DELETE FROM agencia.carro WHERE idcarro = ?";
 
 		try (Connection conn = ConexaoFactory.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
-			pstmt.setInt(1, comprador.getId());
+			pstmt.setInt(1, Carro.getId());
 
 			pstmt.executeUpdate();
 
@@ -56,22 +56,22 @@ public class CompradorDAO {
 
 	}
 
-	public static void update(Comprador comprador) {
+	public static void update(Carro Carro) {
 
-		if (comprador == null || comprador.getId() == null) {
+		if (Carro == null || Carro.getId() == null) {
 
 			System.out.println("Não foi possivel atualizar");
 			return;
 
 		}
 
-		String sql = "UPDATE agencia.comprador SET cpf = ?, nome = ? WHERE idcomprador = ?";
+		String sql = "UPDATE agencia.carro SET carroplaca = ?, carronome = ? WHERE idCarro = ?";
 
 		try (Connection conn = ConexaoFactory.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
-			pstmt.setString(1, comprador.getCpf());
-			pstmt.setString(2, comprador.getNome());
-			pstmt.setInt(3, comprador.getId());
+			pstmt.setString(1, Carro.getPlaca());
+			pstmt.setString(2, Carro.getNome());
+			pstmt.setInt(3, Carro.getId());
 
 			pstmt.executeUpdate();
 
@@ -82,23 +82,24 @@ public class CompradorDAO {
 
 	}
 
-	public static List<Comprador> selectAll() {
+	public static List<Carro> selectAll() {
 
-		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador;";
+		String sql = "SELECT idcarro, carroplaca, carronome, idcomprador FROM agencia.Carro;";
 
 		try (Connection conn = ConexaoFactory.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();) {
 
-			List<Comprador> compradores = new ArrayList<Comprador>();
+			List<Carro> carros = new ArrayList<Carro>();
 
 			while (rs.next()) {
 
-				compradores.add(new Comprador(rs.getInt("idcomprador"), rs.getString("compradorcpf"), rs.getString(3)));
+				carros.add(new Carro(rs.getInt("idcarro"), rs.getString("carroplaca"), rs.getString("carronome"), 
+						CompradorDAO.selectById(rs.getInt("idcomprador"))));
 
 			}
 
-			return compradores;
+			return carros;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -107,10 +108,10 @@ public class CompradorDAO {
 		return null;
 
 	}
+	
+	public static List<Carro> selectByName(String nome) {
 
-	public static List<Comprador> selectByName(String nome) {
-
-		String sql = "SELECT idcomprador, compradorcpf, compradornome FROM agencia.comprador WHERE compradornome LIKE ?";
+		String sql = "SELECT idcarro, carroplaca, carronome, idcomprador FROM agencia.Carro WHERE carronome LIKE ?";
 
 		try (Connection conn = ConexaoFactory.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
@@ -118,18 +119,18 @@ public class CompradorDAO {
 
 			ResultSet rs = pstmt.executeQuery();
 
-			List<Comprador> compradores = new ArrayList<Comprador>();
+			List<Carro> carros = new ArrayList<Carro>();
 
 			while (rs.next()) {
 
-				compradores.add(new Comprador(rs.getInt("idcomprador"), rs.getString("compradorcpf"),
-						rs.getString("compradornome")));
+				carros.add(new Carro(rs.getInt("idcarro"), rs.getString("carroplaca"), rs.getString("carronome"), 
+						CompradorDAO.selectById(rs.getInt("idcomprador"))));
 
 			}
 
 			ConexaoFactory.close(conn, pstmt, rs);
 
-			return compradores;
+			return carros;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -139,26 +140,30 @@ public class CompradorDAO {
 
 	}
 
-	public static Comprador selectById(Integer id) {
+	public static Carro selectById(Integer id) {
 
-		String sql = "SELECT compradorcpf, compradornomer FROM agencia.comprador where id = ?";
+		String sql = "SELECT carroplaca, carronome, idcomprador FROM agencia.carro where id = ?";
+		
+		Carro carro = null;
 
-		Comprador comprador = null;
-
-		try (Connection conn = ConexaoFactory.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try(Connection conn = ConexaoFactory.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
 			pstmt.setInt(1, id);
-
+			
 			ResultSet rs = pstmt.executeQuery();
 
-			// nome, placa, compradorid
+			//nome, placa, compradorid
 			while (rs.next()) {
-				comprador = new Comprador(id, rs.getString("compradorcpf"), rs.getString("compradornome"));
-			}
 
+				carro = new Carro(id, rs.getString("carroplaca"), rs.getString("carronome"), 
+						CompradorDAO.selectById(rs.getInt("idcomprador")));
+
+			}
+			
 			ConexaoFactory.close(conn, pstmt, rs);
 
-			return comprador;
+			return carro;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
