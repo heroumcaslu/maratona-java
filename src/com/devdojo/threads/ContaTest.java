@@ -14,7 +14,7 @@ public class ContaTest implements Runnable {
 		Thread anna = new Thread(contaTest, "Anna");
 		
 	}
-	
+	//sincronizar pra proteger os dados que podem ser usados por threads -- lock da classe
 	public static synchronized void imprime() {
 		
 		System.out.println("Alo");
@@ -26,7 +26,7 @@ public class ContaTest implements Runnable {
 		
 	}
 	
-	//só uma thread tem acesso por vez
+	//só uma thread tem acesso por vez -- lock da instância
 	private synchronized void saque(int valor) {
 		
 		if(conta.getSaldo() > valor) {
