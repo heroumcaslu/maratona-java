@@ -1,16 +1,25 @@
-package com.devdojo.concorrencia;
+package com.devdojo.concorrencia.test;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class Contador{
 	
 	private int count;
 	private AtomicInteger atomicInteger = new AtomicInteger();
+	private Lock lock = new ReentrantLock();
 	
 	public void increment() {
-		
-		count++;
-		atomicInteger.getAndIncrement();
+		lock.lock();
+		try {
+			count++;
+			atomicInteger.getAndIncrement();
+		} finally {
+			
+			lock.unlock();
+			
+		}
 		
 	}
 	
