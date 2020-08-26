@@ -71,7 +71,7 @@ public class Pessoa {
 
 		}
 		
-		public Pessoa createPerson() {
+		public Pessoa build() {
 			
 			return new Pessoa(this.name, this.lastName, this.middleName, this.nick, this.father);
 			

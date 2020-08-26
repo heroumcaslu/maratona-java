@@ -13,7 +13,7 @@ public class TestePessoa {
 				.lastName("Silva")
 				.middleName("Herom")
 				.father("Pai de Lucas")
-				.createPerson();
+				.build();
 		
 	}
 
