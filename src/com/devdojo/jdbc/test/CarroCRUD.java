@@ -5,11 +5,13 @@ import java.util.Scanner;
 
 import com.devdojo.jdbc.classes.Carro;
 import com.devdojo.jdbc.classes.Comprador;
-import com.devdojo.jdbc.db.CarroDAO;
+import com.devdojo.jdbc.db.CarroDAOImpl;
+import com.devdojo.jdbc.interfaces.CarroDAO;
 
 public class CarroCRUD {
 
 	private static Scanner teclado = new Scanner(System.in);
+	private static CarroDAO dao = new CarroDAOImpl();
 
 	public static void executar(int op) {
 		// TODO Auto-generated method stub
@@ -49,7 +51,7 @@ public class CarroCRUD {
 		String op = teclado.nextLine();
 		if (op.toUpperCase().startsWith("Y") | op.isEmpty()) {
 
-			CarroDAO.remove(carros.get(index));
+			dao.remove(carros.get(index));
 
 		}
 
@@ -58,7 +60,7 @@ public class CarroCRUD {
 	private static void searchByName(String nome) {
 		// TODO Auto-generated method stub
 
-		List<Carro> carros = CarroDAO.selectByName(nome);
+		List<Carro> carros = dao.selectByName(nome);
 		for (int i = 0; i < carros.size(); i++) {
 
 			Carro c = carros.get(i);
@@ -70,7 +72,7 @@ public class CarroCRUD {
 
 	private static List<Carro> listAll() {
 		// TODO Auto-generated method stub
-		List<Carro> carros = CarroDAO.selectAll();
+		List<Carro> carros = dao.selectAll();
 		for (int i = 0; i < carros.size(); i++) {
 
 			Carro c = carros.get(i);
@@ -97,7 +99,7 @@ public class CarroCRUD {
 		if (!placa.isEmpty())
 			c.setPlaca(placa);
 
-		CarroDAO.update(c);
+		dao.update(c);
 
 	}
 
@@ -113,7 +115,7 @@ public class CarroCRUD {
 		List<Comprador> compradores = CompradorCRUD.listAll();
 		c.setComprador(compradores.get(Integer.parseInt(teclado.nextLine())));
 
-		CarroDAO.save(c);
+		dao.save(c);
 
 	}
 

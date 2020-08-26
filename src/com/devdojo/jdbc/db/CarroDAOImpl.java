@@ -10,10 +10,12 @@ import java.util.List;
 import com.devdojo.jdbc.classes.Carro;
 import com.devdojo.jdbc.classes.Comprador;
 import com.devdojo.jdbc.conn.ConexaoFactory;
+import com.devdojo.jdbc.interfaces.CarroDAO;
 
-public class CarroDAO {
+public class CarroDAOImpl implements CarroDAO {
 
-	public static void save(Carro carro) {
+	@Override
+	public void save(Carro carro) {
 
 		String sql = "INSERT INTO agencia.carro (nome, placa, compradorid) VALUES (?, ?, ?);";
 
@@ -32,7 +34,8 @@ public class CarroDAO {
 
 	}
 
-	public static void remove(Carro Carro) {
+	@Override
+	public void remove(Carro Carro) {
 
 		if (Carro == null || Carro.getId() == null) {
 
@@ -56,7 +59,8 @@ public class CarroDAO {
 
 	}
 
-	public static void update(Carro Carro) {
+	@Override
+	public void update(Carro Carro) {
 
 		if (Carro == null || Carro.getId() == null) {
 
@@ -82,7 +86,8 @@ public class CarroDAO {
 
 	}
 
-	public static List<Carro> selectAll() {
+	@Override
+	public List<Carro> selectAll() {
 
 		String sql = "SELECT idcarro, carroplaca, carronome, idcomprador FROM agencia.Carro;";
 
@@ -109,7 +114,8 @@ public class CarroDAO {
 
 	}
 	
-	public static List<Carro> selectByName(String nome) {
+	@Override
+	public  List<Carro> selectByName(String nome) {
 
 		String sql = "SELECT idcarro, carroplaca, carronome, idcomprador FROM agencia.Carro WHERE carronome LIKE ?";
 
@@ -140,7 +146,8 @@ public class CarroDAO {
 
 	}
 
-	public static Carro selectById(Integer id) {
+	@Override
+	public  Carro selectById(Integer id) {
 
 		String sql = "SELECT carroplaca, carronome, idcomprador FROM agencia.carro where id = ?";
 		
