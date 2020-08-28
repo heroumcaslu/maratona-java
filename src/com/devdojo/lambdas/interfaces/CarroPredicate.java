@@ -1,6 +1,6 @@
-package com.devdojo.parametrizandocomportamentos.interfaces;
+package com.devdojo.lambdas.interfaces;
 
-import com.devdojo.parametrizandocomportamentos.Carro;
+import com.devdojo.lambdas.Carro;
 
 //Interface que tem apenas um método
 @FunctionalInterface
