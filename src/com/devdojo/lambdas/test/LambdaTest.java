@@ -1,5 +1,7 @@
 package com.devdojo.lambdas.test;
 
+import java.util.function.Predicate;
+
 import com.devdojo.lambdas.Carro;
 import com.devdojo.lambdas.interfaces.CarroPredicate;
 
@@ -26,9 +28,10 @@ public class LambdaTest {
 		
 		//Com lambda
 		CarroPredicate carroPredicate2 = (Carro carro) -> carro.getCor().equals("verde");
+		//Predicate<Carro> carroPredicate3 = (Carro carro) -> carro.getCor().equals("verde");
 		
 		System.out.println(carroPredicate.test(new Carro("verde", 2012)));
-		System.out.println(carroPredicate.test(new Carro("verde", 2012)));
+		System.out.println(carroPredicate2.test(new Carro("verde", 2012)));
 		
 		Runnable runnable = () -> System.out.println("Dentro do runa");
 		
