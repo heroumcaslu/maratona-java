@@ -6,13 +6,14 @@ public class Pessoa {
 
 	private Carro carro;
 	private String nome;
-	
+	private int idade;
+
 	public Pessoa(Carro carro, String nome) {
 		// TODO Auto-generated constructor stub
 		this.carro = carro;
 		this.nome = nome;
 	}
-	
+
 	public Pessoa(String nome) {
 		// TODO Auto-generated constructor stub
 		this.nome = nome;
@@ -32,6 +33,14 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public int getIdade() {
+		return idade;
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
 	}
 
 }
