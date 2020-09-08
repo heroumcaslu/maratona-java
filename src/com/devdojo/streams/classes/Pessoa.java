@@ -21,7 +21,8 @@ public class Pessoa {
 		
 		return Arrays.asList(new Pessoa("William Suane", 22, 2000), 
 				new Pessoa("William Suane", 22, 2000),
-				new Pessoa("Mercy", 28, 2200),
+				new Pessoa("Mercy", 22, 2200),
+				new Pessoa("Mercy", 22, 2200),
 				new Pessoa("Ana", 19, 1895),
 				new Pessoa("Thor", 23, 1980),
 				new Pessoa("Hulk", 35, 8000),
@@ -54,6 +55,40 @@ public class Pessoa {
 	public void setSalario(double salario) {
 		this.salario = salario;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idade;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(salario);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pessoa other = (Pessoa) obj;
+		if (idade != other.idade)
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (Double.doubleToLongBits(salario) != Double.doubleToLongBits(other.salario))
+			return false;
+		return true;
+	}
+	
 	
 	
 

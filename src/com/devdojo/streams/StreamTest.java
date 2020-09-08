@@ -32,9 +32,22 @@ public class StreamTest {
 		List<String> nomes2 = pessoas.stream().filter(p -> p.getIdade() < 25)
 				.sorted(Comparator.comparing(Pessoa::getNome))
 				.limit(3)
+				.skip(1)
 				.map(Pessoa::getNome)
 				.collect(Collectors.toList());
 		System.out.println(nomes2);
+		
+		//Intermediate e Terminal
+		//Intermediate retorna outro stream
+		//Terminal não retorna stream
+		
+		System.out.println(pessoas.stream().filter(p -> p.getIdade() < 25)
+				.sorted(Comparator.comparing(Pessoa::getNome))
+				.distinct()
+				.map(Pessoa::getNome)
+				.count());
+		
+		pessoas.stream().forEach(System.out::println);
 
 	}
 
