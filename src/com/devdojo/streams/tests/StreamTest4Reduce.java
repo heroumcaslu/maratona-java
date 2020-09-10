@@ -1,7 +1,8 @@
-package com.devdojo.streams;
+package com.devdojo.streams.tests;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
@@ -44,8 +45,13 @@ public class StreamTest4Reduce {
 		
 		System.out.println(sum);
 		
+		//tem o max e o min também
 		DoubleStream mapToDouble = streamPessoa.filter(p -> p.getSalario() > 4000)
 		.mapToDouble(Pessoa::getSalario);
+		
+		OptionalDouble max = streamPessoa.filter(p -> p.getSalario() > 4000)
+				.mapToDouble(Pessoa::getSalario)
+				.max();
 		
 		Stream<Double> doubleStream = mapToDouble.boxed();
 		

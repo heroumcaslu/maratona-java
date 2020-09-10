@@ -1,4 +1,4 @@
-package com.devdojo.streams;
+package com.devdojo.streams.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
