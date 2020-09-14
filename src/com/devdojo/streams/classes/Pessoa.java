@@ -8,12 +8,22 @@ public class Pessoa {
 	private String nome;
 	private int idade;
 	private double salario;
+	private Genero genero;
 	
 	public Pessoa(String nome, int idade, double salario) {
 		// TODO Auto-generated constructor stub
 		this.nome = nome;
 		this.idade = idade;
 		this.salario = salario;
+	
+	}
+	
+	public Pessoa(String nome, int idade, double salario, Genero genero) {
+		// TODO Auto-generated constructor stub
+		this.nome = nome;
+		this.idade = idade;
+		this.salario = salario;
+		this.genero = genero;
 	
 	}
 	
