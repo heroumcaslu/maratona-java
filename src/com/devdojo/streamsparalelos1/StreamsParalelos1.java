@@ -7,6 +7,31 @@ public class StreamsParalelos1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
+		//Levar em consideração:
+		// Benchmark - nem sempre os streams paralelos são mais rápidos que os sequenciais
+		// Unboxing e boxing - afetam a performance
+		// Algumas operações são piores em streams paralelas do que em sequenciais (limit, findFirst) (findAny, unordered)
+		// Considerar o custo total da computação N, P (n= ELEMNETOS, P = Coeficiente de performance/processamento)
+		// Quantidade de dados
+		// Tipos de coleções
+		// Tamanho do Stream (tamanho definido)
+		// Processamento do merge - 
+		/*
+		if(tarefa == pequena || !divisivel) {
+			
+			sequencial
+			
+		} else {
+			
+			dividir as tarefas em duas
+			chamar o metodo recursivamente
+			esperar todas as tarefas serem completadas
+			combinar todos os resultados
+			
+		}*/
+		
 		long num = 10_00_000;
 		somaFor(num);
 		
