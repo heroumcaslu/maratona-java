@@ -7,6 +7,22 @@ import java.util.concurrent.TimeUnit;
 
 public class Loja {
 
+	private String nome;
+	
+	public Loja() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Loja(String nome) {
+		
+		this.nome = nome;
+		
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
 	public double getPreco() {
 
 		// Vai pegar o preço
@@ -36,11 +52,17 @@ public class Loja {
 		
 	}
 	
+	public Future<Double> getPrecoAsyncTunado() {
+		
+		return CompletableFuture.supplyAsync(this::calcularPreco);
+		
+	}
+	
 	private double calcularPreco() {
 		
 		delay();
 		//forçar exceção
-		System.out.println(1/0);
+		//System.out.println(1/0);
 		return ThreadLocalRandom.current().nextDouble() * 100;
 		
 	}
@@ -48,7 +70,7 @@ public class Loja {
 	private static void delay() {
 
 		try {
-			TimeUnit.SECONDS.sleep(2);
+			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

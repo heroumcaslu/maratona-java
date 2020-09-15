@@ -17,10 +17,10 @@ public class ContaTest implements Runnable {
 	//sincronizar pra proteger os dados que podem ser usados por threads -- lock da classe
 	public static synchronized void imprime() {
 		
-		System.out.println("Alo");
+		System.out.println("Dados");
 		synchronized (ContaTest.class) {
 			
-			System.out.println("Alou");
+			System.out.println("Dados");
 			
 		}
 		
