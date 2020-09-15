@@ -19,8 +19,16 @@ public class Loja {
 		
 		CompletableFuture<Double> precoFuturo = new CompletableFuture<Double>();
 		new Thread(()-> {
+			//caso não ê pra usar o timeout no get
+			try {
 			
-			precoFuturo.complete(calcularPreco());
+				precoFuturo.complete(calcularPreco());
+			
+			} catch (Exception e) {
+				
+				precoFuturo.completeExceptionally(e);
+				
+			}
 			
 		}).start();
 		
@@ -31,6 +39,8 @@ public class Loja {
 	private double calcularPreco() {
 		
 		delay();
+		//forçar exceção
+		System.out.println(1/0);
 		return ThreadLocalRandom.current().nextDouble() * 100;
 		
 	}

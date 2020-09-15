@@ -2,6 +2,8 @@ package com.devdojo.completablefuture.test;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.devdojo.completablefuture.Loja;
 
@@ -31,11 +33,17 @@ public class LojaTest {
 		System.out.println("Tempo: " + (System.currentTimeMillis() - start) + " ms");
 		enrolando();
 		try {
-			System.out.println("Americanas: "+precoAsync.get()+
-			"Casas Bahia: "+precoAsync2.get()+
-			"Wallmart: "+precoAsync3.get()+
-			"bestBuy: "+precoAsync4.get());
+			
+			//o get sem parametro espera um retorno se não retornar ele não para de executar
+			System.out.println("Americanas: "+precoAsync.get(3, TimeUnit.SECONDS)+
+			"Casas Bahia: "+precoAsync2.get(3, TimeUnit.SECONDS)+
+			"Wallmart: "+precoAsync3.get(3, TimeUnit.SECONDS)+
+			"bestBuy: "+precoAsync4.get(3, TimeUnit.SECONDS));
+			
 		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TimeoutException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
