@@ -53,7 +53,10 @@ public class NovaLoja {
 	private static void delay() {
 
 		try {
-			TimeUnit.SECONDS.sleep(1);
+			
+			int delay = ThreadLocalRandom.current().nextInt(500, 2000);
+			TimeUnit.MILLISECONDS.sleep(delay);
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
