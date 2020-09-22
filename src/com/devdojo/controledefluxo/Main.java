@@ -9,6 +9,7 @@ public class Main {
 		double totalAmount = 30000;
 		for (int installments = 1; installments < totalAmount; installments++) {
 
+			//vai pular a iteração quando a parcela for 1
 			if (installments == 1) {
 
 				continue;
