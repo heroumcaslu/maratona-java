@@ -10,6 +10,9 @@ public class TwoDimensionalArrays {
 		
 	}
 	
+	//int[][] arr = new int[3][];
+	//arr[0] = new int[2]
+	
 	int[][] teste = new int[3][4];
 	void populateArr() {
 		
@@ -24,7 +27,7 @@ public class TwoDimensionalArrays {
 		}
 		
 		
-		    
+		//Imprime o array e quebra linha no fim da linha do array    
 	    for(int[] linha : teste) {
 	    
 		    for(int coluna : linha){

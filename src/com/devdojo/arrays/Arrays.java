@@ -10,7 +10,7 @@ public class Arrays {
 	int[] idades = new int[3];
 	int[] secondIdades = {12, 19, 20};
 	int[] thirdIdades = new int[]{12, 19, 20};
-
+	
 	void populateArray() {
 		
 		//enhanced-for
