@@ -2,6 +2,7 @@ package com.devdojo.classes;
 
 public class Student {
 
+	//Alta Coesão -> cada classe é responsável por determinado objetivo
 	private String nome;
 	private String matricula;
 	private int idade;

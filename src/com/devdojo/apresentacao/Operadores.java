@@ -17,7 +17,19 @@ public class Operadores {
 			// Condição ? Retorno if true : Retorno if false
 		//Atribuição
 			// = += -= /= %=
+		
+		if(isOlder()) {
+			
+			System.out.println("Maior de idade");
+			
+		}
 
+	}
+
+	//Nomeando métodos com retorno booleano
+	private static boolean isOlder() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

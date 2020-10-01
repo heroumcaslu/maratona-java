@@ -8,6 +8,8 @@ public class StudentsTests {
 		
 		Student std = new Student();
 		
+		//passando argumentos
+		//argumentos primitivos é passada uma cópia do valor e reference types é passado a referência ao objeto
 		std.setIdade(15);
 		std.setNome("João");
 		std.setMatricula("70170393437");
