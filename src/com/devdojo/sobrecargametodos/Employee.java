@@ -19,7 +19,7 @@ public class Employee {
 	
 	public Employee(String name, String cpf, double salary) {
 		
-		this.name = name;
+		this(name);
 		this.cpf = cpf;
 		this.salary = salary;
 		
