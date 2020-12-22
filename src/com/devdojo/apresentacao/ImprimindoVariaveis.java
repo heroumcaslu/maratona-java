@@ -21,7 +21,7 @@ public class ImprimindoVariaveis {
 		//Nomeie as variaveis corretamente ex: h != height
 		
 		@SuppressWarnings("unused")
-		int idade = 10; // 4bytes -2147483648, 2147483647
+		int idade = 10, x = 5, y = 4; // 4bytes -2147483648, 2147483647
 		@SuppressWarnings("unused")
 		double salarioD = 2000D; // 8bytes -4,94E-307, 1.79769313486231570E+308
 		@SuppressWarnings("unused")
